@@ -9,8 +9,7 @@ const routes = require('./routes');
 // const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+
 
 // const server = new ApolloServer({
 //   typeDefs,
@@ -23,6 +22,9 @@ async function startApolloServer(typeDefs, resolvers) {
   const app = express();
   await server.start();
   server.applyMiddleware({ app, path: '/graphql' });
+
+  app.use(express.urlencoded({ extended: true }));
+  app.use(express.json());
 
   db.once('open', () => {
     app.listen(PORT, () => {

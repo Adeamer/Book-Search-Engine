@@ -19,7 +19,7 @@ app.use(express.json());
 // })
 
 async function startApolloServer(typeDefs, resolvers) {
-  const server = new ApolloServer({ typeDefs, resolvers })
+  const server = new ApolloServer({ typeDefs, resolvers, context: authMiddleware })
   const app = express();
   await server.start();
   server.applyMiddleware({ app, path: '/graphql' });
